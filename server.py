@@ -15,13 +15,17 @@ view_cli_template = {
         "cancelVisible": True,
         "confirm": "确认",
         "cancel": "取消",
+        "confirmWidth": 100,
+        "confirmHeight": 100,
+        "cancelWidth": 120,
+        "cancelHeight": 100,
         "delay": 1000,  # ms
+    }],
+    "messages": [{
+        "receiver": "qy",
+        "content": "hello qy",
+        "delay": 3000,
     }]
-    # "messages": [{
-    #     "receiver": "qy",
-    #     "content": "hello qy",
-    #     "delay": 3000,
-    # }]
     # button 还没有支持
     # "buttons": [{
     #     "text": "error button",
