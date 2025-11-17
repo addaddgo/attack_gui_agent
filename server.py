@@ -6,30 +6,17 @@ import threading
 view_cli_template = {
     "dialogs": [{
         "title": "error",
-        "message": "errorxxxx asdfasdfsdsfdxxx",
-        "left": 100,  # 左上角 x
+        "message": "errorxxxx asdfasdfsdsfdxxx\n\n\n\n\n\n\n\n\n\nxxx",
+        "left": 1000,  # 左上角 x
         "top": 100,  # 左上角 y
-        "width": 200,  # 高宽
-        "heigth": 200,
-        "confirmVisible": True,
-        "cancelVisible": True,
-        "confirm": "确认",
-        "cancel": "取消",
-        "delay": 3000,  # ms
-    },
-        {
-        "title": "error",
-        "message": "dialogs 2",
-        "left": 100,  # 左上角 x
-        "top": 400,  # 左上角 y
-        "width": 200,  # 高宽
-        "heigth": 200,
-        "confirmVisible": True,
+        "width": 400,  # 高宽
+        "height": 1500,
+        "confirmVisible": False,
         "cancelVisible": True,
         "confirm": "确认",
         "cancel": "取消",
         "delay": 1000,  # ms
-    }]  # 根据 delay 依次渲染 dialog
+    }]
     # "messages": [{
     #     "receiver": "qy",
     #     "content": "hello qy",
