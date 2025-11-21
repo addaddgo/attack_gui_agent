@@ -60,14 +60,32 @@ _uploaded_frame_condition = threading.Condition()
 _uploaded_frame_bytes = None
 _uploaded_frame_seq = 0
 
+# MainActivityResume
+# Interval
+
+capture_count = 0
+
 
 @app.route('/action/<action>', methods=['GET', 'POST'])
 def action_endpoint(action: str):
+    global capture_count
     """接口"""
     try:
         if action.startswith("interval"):
             return {}
-        on_action(action)
+        if action == "MainActivityResume":
+            if capture_count == 0:
+                capture_count += 1
+                return {
+                    "captureScreen": [
+                        {
+                            "delay": 1000
+                        }
+                    ],
+                }
+            else:
+                return {}
+        # on_action(action)
         print(action)
         response = view_cli_template
         return jsonify(response)
