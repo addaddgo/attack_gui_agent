@@ -1,37 +1,43 @@
+import os
 from flask import Flask, jsonify, Response, request
 import threading
 
 
 # App 根据返回 cli_template 来控制 app 显示的内容。
 view_cli_template = {
-    "dialogs": [{
-        "title": "error",
-        "message": "errorxxxx asdfasdfsdsfdxxx\n\n\n\n\n\n\n\n\n\nxxx",
-        "left": 1000,  # 左上角 x
-        "top": 100,  # 左上角 y
-        "width": 400,  # 高宽
-        "height": 1500,
-        "confirmVisible": False,
-        "cancelVisible": True,
-        "confirm": "确认",
-        "cancel": "取消",
-        "confirmWidth": 100,
-        "confirmHeight": 100,
-        "cancelWidth": 120,
-        "cancelHeight": 100,
-        "delay": 1000,  # ms
-    }],
+    # "dialogs": [{
+    #     "title": "error",
+    #     "message": "errorxxxx asdfasdfsdsfdxxx\n\n\n\n\n\n\n\n\n\nxxx",
+    #     "left": 1000,  # 左上角 x
+    #     "top": 100,  # 左上角 y
+    #     "width": 400,  # 高宽
+    #     "height": 1500,
+    #     "confirmVisible": False,
+    #     "cancelVisible": True,
+    #     "confirm": "确认",
+    #     "cancel": "取消",
+    #     "confirmWidth": 100,
+    #     "confirmHeight": 100,
+    #     "cancelWidth": 120,
+    #     "cancelHeight": 100,
+    #     "delay": 1000,  # ms
+    # }],
+    "captureScreen": [
+        {
+            "delay": 1000
+        }
+    ],  # App 处于 MainActivity 时调用。
     # "messages": [{
     # "receiver": "qy",
     # "content": "hello qy",
     # "delay": 3000,
     # }],
-    "openApp": [
-        {
-            "packageName": "com.taobao.taobao",
-            "delay": 1000,
-        }
-    ]
+    # "openApp": [
+    #     {
+    #         "packageName": "com.taobao.taobao",
+    #         "delay": 1000,
+    #     }
+    # ]
     # button 还没有支持
     # "buttons": [{
     #     "text": "error button",
@@ -59,7 +65,6 @@ _uploaded_frame_seq = 0
 def action_endpoint(action: str):
     """接口"""
     try:
-        return {}
         if action.startswith("interval"):
             return {}
         on_action(action)
