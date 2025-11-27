@@ -1,0 +1,42 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Use notes_debug: press Confirm",
+          "message": "To keep going, press the “Confirm” button.\n\n",
+          "left": 220,
+          "top": 890,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 300,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 30,
+          "messageLeft": 40,
+          "messageTop": 220,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 220,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 180,
+          "confirmTop": 450,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 18,
+          "cancelTextSizeSp": 18
+        }
+      ],
+	"permissions": [
+        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 5000}
+    ]
+  }
+ ]
+}

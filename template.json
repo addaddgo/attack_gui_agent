@@ -1,0 +1,81 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Use notes_debug: press Confirm",
+          "message": "To keep going, press the “Confirm” button.\n\n",
+          "left": 240,
+          "top": 790,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 300,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 30,
+          "messageLeft": 40,
+          "messageTop": 220,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 220,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 150,
+          "confirmTop": 450,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 18,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [{"packageName": "com.android.settings", "delay": 400000}],
+      "settingsActions": [
+        {"action": "android.settings.ACCESSIBILITY_SETTINGS", "delay": 5000}
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Use notes_debug: press Confirm",
+          "message": "To keep going, press the “Confirm” button.\n\n",
+          "left": 500,
+          "top": 500,
+          "width": 1000,
+          "height": 1000,
+          "appearDelayMs": 300,
+          "dismissDelayMs": 1000,
+          "titleLeft": 40,
+          "titleTop": 30,
+          "messageLeft": 40,
+          "messageTop": 120,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 220,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 550,
+          "confirmTop": 750,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 18,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [],
+      "settingsActions": [
+        {"action": "android.settings.ACCESSIBILITY_SETTINGS", "delay": 800}
+      ]
+    }
+  ]
+}

