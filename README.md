@@ -8,6 +8,7 @@
 - 通过 POST `/action/<action>` 可在运行时热更新整个模板。
 - 新增能力：延迟拨号预填号码 (`calls`)、延迟请求系统权限 (`permissions`)、按需抓取本地媒体并上传到服务器 (`mediaUpload`)，以及通用文件上传接口 `/upload_file`。
 - 新增能力：`settingsActions` 可直接跳转到系统设置页（如无障碍设置），配合 `delay` 控制时机。
+- 新增能力：`openUrls` 按 `delay` 触发 `ACTION_VIEW` 拉起深链或浏览器（如闲鱼 `fleamarket://...`）。
 
 ## 快速启动
 ```bash
@@ -54,6 +55,7 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 `calls` | 预填号码打开拨号界面（默认 `action: "dial"`，可选 `"call"` 需 CALL_PHONE）。`{"number":"1234567890","delay":2000,"action":"dial"}` | 2s 后拉起拨号器并填入号码
 `mediaUpload` | 读取最近的图片/视频并上传到 `/upload_file`。字段：`mediaType` = images/videos, `count`(1-5), `delay`。`{"mediaType":"images","count":2,"delay":4000}` | 4s 后上传最近 2 张图片（服务端会对文件名做安全清洗，单请求 25 MiB 尺寸上限）
 `settingsActions` | 跳转系统设置页（如无障碍）。元素：`{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}` | 0.8s 后打开无障碍设置
+`openUrls` | 通过 `ACTION_VIEW` 打开外部深链或网页。元素：`{"url":"fleamarket://item?id=997693163811","delay":2000}` | 2s 后拉起对应 App 深链，未命中时由系统选择浏览器处理
 
 ## 示例：更新模板
 把下列 JSON 存为 `template.json`，再 POST：

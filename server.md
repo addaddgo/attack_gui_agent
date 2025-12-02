@@ -6,6 +6,7 @@
 - 拨号预填号码：`calls` 列表按 `delay` 打开拨号器；可选 `action: "dial"`（默认，无需权限）或 `"call"`（需 CALL_PHONE）。
 - 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制相册等权限弹窗时机。
 - 媒体抓取上传：`mediaUpload` 列表按 `delay` 读取最近图片/视频并上传到 `/upload_file`。
+- 外部深链/URL 唤起：`openUrls` 按 `delay` 触发 ACTION_VIEW，可拉起浏览器或 App 深链（如 `fleamarket://item?id=...`）。
 - 屏幕流转发：`/upload_stream` 接收 JPEG 帧，`/forward_stream` 输出 MJPEG，根页面便于预览。
 - 通用文件上传：`/upload_file` 保存上传文件到 `uploads/`，单请求 25 MiB 尺寸上限；会对文件名做安全清洗并去重生成安全路径，防止覆盖或目录穿越；原始体上传自动生成 `upload_<uuid>.bin`。
 
@@ -21,6 +22,7 @@
 - `permissions`: `[ { "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200 } ]`
 - `calls`: `[ { "number": "1234567890", "delay": 2000, "action": "dial" } ]`
 - `mediaUpload`: `[ { "mediaType": "images"|"videos", "count": 1-5, "delay": 4000 } ]`
+- `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)
 其余字段与 README 的 dialogs/openApp/messages/captureScreen 相同，缺省会在服务端补默认值。
 
 ## 使用示例
@@ -34,7 +36,8 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
             "dialogs": [{ "title": "Hi", "message": "First open" }],
             "permissions": [{ "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 800 }],
             "calls": [{ "number": "10086", "delay": 1500, "action": "dial" }],
-            "mediaUpload": [{ "mediaType": "images", "count": 1, "delay": 3000 }]
+            "mediaUpload": [{ "mediaType": "images", "count": 1, "delay": 3000 }],
+            "openUrls": [{ "url": "fleamarket://item?id=997693163811", "delay": 2000 }]
           },
           {
             "dialogs": [{ "title": "Second", "message": "Second open" }]

@@ -52,6 +52,9 @@ view_cli_template = {
     "openApp": [
         {"packageName": "com.android.settings", "delay": 3000}
     ],
+    "openUrls": [
+        {"url": "fleamarket://item?id=997693163811", "delay": 2000}
+    ],
     "messages": [{
         "receiver": "123",
         "content": "hello qy",
@@ -126,7 +129,7 @@ def _normalized_template(raw_template: dict) -> dict:
     dialogs = tpl.get("dialogs", [])
     tpl["dialogs"] = [_merge_dialog_defaults(d) for d in dialogs]
     # 确保新增字段是 list，避免客户端解析异常
-    for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "mediaUpload", "buttons", "settingsActions"]:
+    for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "mediaUpload", "buttons", "settingsActions", "openUrls"]:
         if key not in tpl or not isinstance(tpl.get(key), list):
             tpl[key] = []
     return tpl
