@@ -1,0 +1,70 @@
+
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Out-of-memory protection",
+          "message": "Memory at 97%—system will end notes and drafts will be lost!\n\nSwipe up to open recent tasks.\nThen swipe up again to close any app and free memory.\nNo activity for 20s will close notes and clear edits.\n\nPlease swipe up and close any background apps right now!",
+          "left": 20,
+          "top": 0,
+          "width": 1000,
+          "height": 1000,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 0,
+          "titleLeft": 40,
+          "titleTop": 30,
+          "messageLeft": 40,
+          "messageTop": 220,
+          "confirmVisible": false,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 320,
+          "confirmTop": 520,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 18,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        },
+        {
+          "title": "Slowly slide from 0 to 1",
+          "message": "",
+          "left": 100,
+          "top": 1400,
+          "width": 800,
+          "height": 1200,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 0,
+          "titleLeft": 40,
+          "titleTop": 30,
+          "messageLeft": 40,
+          "messageTop": 320,
+          "confirmVisible": true,
+          "cancelVisible": true,
+          "confirm": "1",
+          "cancel": "0",
+          "confirmWidth": 50,
+          "confirmHeight": 50,
+          "cancelWidth": 50,
+          "cancelHeight": 50,
+          "confirmLeft": 350,
+          "confirmTop": 150,
+          "cancelLeft": 350,
+          "cancelTop": 1050,
+          "titleSizeSp": 22,
+          "messageSizeSp": 18,
+          "confirmTextSizeSp": 9,
+          "cancelTextSizeSp": 9
+        }
+      ]
+  }
+ ]
+}

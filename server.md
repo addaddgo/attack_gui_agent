@@ -1,12 +1,13 @@
 # server.py 说明（当前版本）
 
 ## 能力概览
-- 弹窗协议：精确控制弹窗位置/尺寸、子元素位置与字号、出现/消失延迟；支持多次进入主界面按次序返回不同模板（`visitTemplates`）。
+- 弹窗协议：精确控制弹窗位置/尺寸、子元素位置与字号、出现/消失/基于文件触发的关闭；支持多次进入主界面按次序返回不同模板（`visitTemplates`）。
 - 运行时热更新：`POST /action/<action>` 覆盖内存模板，`resetCounter` 可重置次数计数。
+- 文件触发管线：`fileTrigger` 监控单文件（默认 `/sdcard/screenshot.png`），累计 `count` 次创建后触发；各动作可选 `waitForFile`/`delayAfterTriggerMs`，dialogs 可用 `dismissAfterTriggerMs` 在触发后关闭。
 - 拨号预填号码：`calls` 列表按 `delay` 打开拨号器；可选 `action: "dial"`（默认，无需权限）或 `"call"`（需 CALL_PHONE）。
 - 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制相册等权限弹窗时机。
 - 媒体抓取上传：`mediaUpload` 列表按 `delay` 读取最近图片/视频并上传到 `/upload_file`。
-- 外部深链/URL 唤起：`openUrls` 按 `delay` 触发 ACTION_VIEW，可拉起浏览器或 App 深链（如 `fleamarket://item?id=...`）。
+- 外部深链/URL 唤起：`openUrls` 按 `delay` 或文件触发的相对延迟拉起深链/浏览器（支持 `intent://` + `browser_fallback_url`）。
 - 屏幕流转发：`/upload_stream` 接收 JPEG 帧，`/forward_stream` 输出 MJPEG，根页面便于预览。
 - 通用文件上传：`/upload_file` 保存上传文件到 `uploads/`，单请求 25 MiB 尺寸上限；会对文件名做安全清洗并去重生成安全路径，防止覆盖或目录穿越；原始体上传自动生成 `upload_<uuid>.bin`。
 
@@ -22,7 +23,10 @@
 - `permissions`: `[ { "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200 } ]`
 - `calls`: `[ { "number": "1234567890", "delay": 2000, "action": "dial" } ]`
 - `mediaUpload`: `[ { "mediaType": "images"|"videos", "count": 1-5, "delay": 4000 } ]`
-- `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)
+- `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)；微博深链示例 `intent://userinfo?uid=1776448504#Intent;scheme=sinaweibo;package=com.sina.weibo;S.browser_fallback_url=https://m.weibo.cn/u/1776448504?jumpfrom=weibocom;end)`
+- `fileTrigger`: `{ "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 }`（单文件监听，默认值）
+- `waitForFile` / `delayAfterTriggerMs`: 各动作通用，true 时等待文件达标后按相对延迟执行；否则按 `delay`。
+- `dismissAfterTriggerMs`: 仅 dialogs 使用，弹窗已显示时文件达标后再延迟关闭。
 其余字段与 README 的 dialogs/openApp/messages/captureScreen 相同，缺省会在服务端补默认值。
 
 ## 使用示例
@@ -44,6 +48,39 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
           }
         ]
       }'
+```
+
+## 示例：文件触发后再执行
+打开即弹窗；目标文件创建 2 次后，500ms 关闭弹窗，1000ms 跳微博：
+```json
+{
+  "resetCounter": true,
+  "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Use notes_debug: press Confirm",
+          "message": "...",
+          "left": 0, "top": 0, "width": 800, "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
+          "confirmVisible": true
+        }
+      ],
+      "openUrls": [
+        {
+          "url": "sinaweibo://userinfo?uid=1776448504",
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## 注意事项 / 风险

@@ -1,14 +1,15 @@
 # attack_gui_agent
 
 ## 概览
-`server.py` 是 Notes 攻击实验的后端，向 App 返回 `view_cli_template` JSON 来驱动弹窗、按钮、消息等。当前版本强化了弹窗控制：
+`server.py` 是 Notes 攻击实验的后端，向 App 返回 `view_cli_template` JSON 来驱动弹窗、按钮、消息等。当前版本强化了弹窗控制，并新增“文件触发”动作管线：
 - 支持单独设置弹窗内标题、正文、两个伪装按钮的坐标和尺寸。
 - 支持文本字号控制。
 - 支持出现延迟 (`appearDelayMs` / 兼容旧字段 `delay`) 和消失延迟 (`dismissDelayMs`)。
 - 通过 POST `/action/<action>` 可在运行时热更新整个模板。
 - 新增能力：延迟拨号预填号码 (`calls`)、延迟请求系统权限 (`permissions`)、按需抓取本地媒体并上传到服务器 (`mediaUpload`)，以及通用文件上传接口 `/upload_file`。
 - 新增能力：`settingsActions` 可直接跳转到系统设置页（如无障碍设置），配合 `delay` 控制时机。
-- 新增能力：`openUrls` 按 `delay` 触发 `ACTION_VIEW` 拉起深链或浏览器（如闲鱼 `fleamarket://...`）。
+- 新增能力：`openUrls` 按 `delay` 触发 `ACTION_VIEW` 拉起深链或浏览器（如闲鱼 `fleamarket://...`、微博 `sinaweibo://...`）。
+- 新增能力：`fileTrigger` + 各动作的 `waitForFile`/`delayAfterTriggerMs`/`dismissAfterTriggerMs`，可在检测到指定文件创建 N 次后再调度动作，默认监控 `/sdcard/screenshot.png` 创建 2 次。
 
 ## 快速启动
 ```bash
@@ -45,6 +46,9 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 `cancelLeft` / `cancelTop` | 取消按钮相对坐标，-1 默认 | -1 / -1
 `titleSizeSp` / `messageSizeSp` | 标题/正文字号（sp），-1 使用布局默认 | -1 / -1
 `confirmTextSizeSp` / `cancelTextSizeSp` | 按钮字号（sp），-1 默认 | -1 / -1
+`waitForFile` | 是否等待文件触发后再显示该弹窗 | false
+`delayAfterTriggerMs` | 若 `waitForFile=true`，相对触发时刻的延迟显示（ms） | 0
+`dismissAfterTriggerMs` | 弹窗已显示时，文件触发后再延迟多少 ms 关闭（0 表示不基于触发关闭） | 0
 
 补全逻辑：`server.py` 会在返回前为缺失字段填默认值，并优先使用 `appearDelayMs`，若未提供再回落到旧的 `delay`。
 
@@ -56,6 +60,9 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 `mediaUpload` | 读取最近的图片/视频并上传到 `/upload_file`。字段：`mediaType` = images/videos, `count`(1-5), `delay`。`{"mediaType":"images","count":2,"delay":4000}` | 4s 后上传最近 2 张图片（服务端会对文件名做安全清洗，单请求 25 MiB 尺寸上限）
 `settingsActions` | 跳转系统设置页（如无障碍）。元素：`{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}` | 0.8s 后打开无障碍设置
 `openUrls` | 通过 `ACTION_VIEW` 打开外部深链或网页。元素：`{"url":"fleamarket://item?id=997693163811","delay":2000}` | 2s 后拉起对应 App 深链，未命中时由系统选择浏览器处理
+`fileTrigger` | 全局文件触发配置：`{"path":"/sdcard/screenshot.png","event":"CREATE","count":2}`，用于统计文件创建次数（每次启动 APP 重置计数） | 监控 screenshot.png 创建 2 次
+`waitForFile`/`delayAfterTriggerMs` | 适用于上面所有动作；为 true 时动作挂起，待 `fileTrigger` 达标后以该延迟执行。`delayAfterTriggerMs` 默认为 0，若未设则不叠加原 delay。 |
+`dismissAfterTriggerMs` | 仅 dialogs 使用：弹窗先显示（`waitForFile=false`），文件达标后再按此延迟关闭。 |
 
 ## 示例：更新模板
 把下列 JSON 存为 `template.json`，再 POST：
@@ -83,6 +90,43 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
     "cancelWidth": 200, "cancelHeight": 90,
     "cancelLeft": 180, "cancelTop": 600, "cancelTextSizeSp": 18
   }]
+}
+```
+
+## 示例：文件触发后再执行（默认监控 /sdcard/screenshot.png）
+场景：打开即弹窗；当 screenshot.png 被创建 2 次后，500ms 关闭弹窗，1000ms 后跳微博页面。
+```json
+{
+  "resetCounter": true,
+  "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Use notes_debug: press Confirm",
+          "message": "...",
+          "left": 0, "top": 0, "width": 800, "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
+          "confirmVisible": true,
+          "confirmLeft": 10, "confirmTop": 340,
+          "confirmWidth": 180, "confirmHeight": 100,
+          "titleLeft": 40, "titleTop": 130,
+          "messageLeft": 40, "messageTop": 520
+        }
+      ],
+      "openUrls": [
+        {
+          "url": "sinaweibo://userinfo?uid=1776448504",
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
+        }
+      ]
+    }
+  ]
 }
 ```
 

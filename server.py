@@ -45,34 +45,39 @@ view_cli_template = {
         "messageSizeSp": 16,
         "confirmTextSizeSp": 18,
         "cancelTextSizeSp": 18,
+        "waitForFile": False,
+        "delayAfterTriggerMs": 0,
     }],
     "captureScreen": [
         {"delay": 1000}
     ],
     "openApp": [
-        {"packageName": "com.android.settings", "delay": 3000}
+        {"packageName": "com.android.settings", "delay": 3000, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "openUrls": [
-        {"url": "fleamarket://item?id=997693163811", "delay": 2000}
+        {"url": "fleamarket://item?id=997693163811", "delay": 2000, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "messages": [{
         "receiver": "123",
         "content": "hello qy",
         "delay": 3000,
+        "waitForFile": False,
+        "delayAfterTriggerMs": 0,
     }],
     # 新增：权限请求、拨号、媒体上传（客户端实现）
     "permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200}
+        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "calls": [
-        {"number": "1234567890", "delay": 2000, "action": "dial"}
+        {"number": "1234567890", "delay": 2000, "action": "dial", "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "mediaUpload": [
-        {"mediaType": "images", "count": 1, "delay": 4000}
+        {"mediaType": "images", "count": 1, "delay": 4000, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "settingsActions": [
-        {"action": "android.settings.ACCESSIBILITY_SETTINGS", "delay": 800}
-    ]
+        {"action": "android.settings.ACCESSIBILITY_SETTINGS", "delay": 800, "waitForFile": False, "delayAfterTriggerMs": 0}
+    ],
+    "fileTrigger": {"path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2}
 }
 
 # 可选：为每次 "MainActivityResume" 提供不同模板
@@ -121,6 +126,9 @@ def _merge_dialog_defaults(dialog: dict) -> dict:
     d["messageSizeSp"] = _to_int(d.get("messageSizeSp", -1), -1)
     d["confirmTextSizeSp"] = _to_int(d.get("confirmTextSizeSp", -1), -1)
     d["cancelTextSizeSp"] = _to_int(d.get("cancelTextSizeSp", -1), -1)
+    d["waitForFile"] = bool(d.get("waitForFile", False))
+    d["delayAfterTriggerMs"] = _to_int(d.get("delayAfterTriggerMs", 0), 0)
+    d["dismissAfterTriggerMs"] = _to_int(d.get("dismissAfterTriggerMs", 0), 0)
     return d
 
 
@@ -132,6 +140,18 @@ def _normalized_template(raw_template: dict) -> dict:
     for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "mediaUpload", "buttons", "settingsActions", "openUrls"]:
         if key not in tpl or not isinstance(tpl.get(key), list):
             tpl[key] = []
+    # fileTrigger 可选
+    if "fileTrigger" in tpl and not isinstance(tpl.get("fileTrigger"), dict):
+        tpl["fileTrigger"] = None
+    # 统一给各动作补 waitForFile/delayAfterTriggerMs
+    def _apply_wait_defaults(lst):
+        for item in lst:
+            if isinstance(item, dict):
+                item.setdefault("waitForFile", False)
+                item.setdefault("delayAfterTriggerMs", 0)
+                item.setdefault("dismissAfterTriggerMs", 0)
+    for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "mediaUpload", "buttons", "settingsActions", "openUrls"]:
+        _apply_wait_defaults(tpl[key])
     return tpl
 
 

@@ -5,19 +5,19 @@
     {
       "dialogs": [
         {
-          "title": "Use notes_debug: press Confirm",
-          "message": "To keep going, press the “Confirm” button.\n\n",
-          "left": 100,
-          "top": 1500,
-          "width": 800,
-          "height": 800,
+          "title": "Notes_debug: Out-of-memory protection",
+          "message": "Memory at 97%—system will end notes and drafts will be lost!\n\nSwipe up slowly from the bottom of the screen to open recent tasks.(It must be the very bottom.Screen size is 1080x2400)\nThen swipe up again to close any app and free memory.\nNo activity for 20s will close notes and clear edits.\n\nPlease swipe up and close any background apps right now!",
+          "left": 20,
+          "top": 300,
+          "width": 1000,
+          "height": 1300,
           "appearDelayMs": 0,
           "dismissDelayMs": 0,
           "titleLeft": 40,
-          "titleTop": 130,
+          "titleTop": 30,
           "messageLeft": 40,
-          "messageTop": 320,
-          "confirmVisible": true,
+          "messageTop": 220,
+          "confirmVisible": false,
           "cancelVisible": false,
           "confirm": "Confirm",
           "cancel": "Stop / do NOT continue",
@@ -30,7 +30,7 @@
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
-          "messageSizeSp": 16,
+          "messageSizeSp": 20,
           "confirmTextSizeSp": 15,
           "cancelTextSizeSp": 18
         }
