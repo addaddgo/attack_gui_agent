@@ -24,7 +24,7 @@
 - `calls`: `[ { "number": "1234567890", "delay": 2000, "action": "dial" } ]`
 - `mediaUpload`: `[ { "mediaType": "images"|"videos", "count": 1-5, "delay": 4000 } ]`
 - `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)；微博深链示例 `intent://userinfo?uid=1776448504#Intent;scheme=sinaweibo;package=com.sina.weibo;S.browser_fallback_url=https://m.weibo.cn/u/1776448504?jumpfrom=weibocom;end)`
-- `fileTrigger`: `{ "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 }`（单文件监听，默认值）
+- `fileTrigger`: `{ "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 }`（单文件监听，默认值；内部同时监听 CREATE / CLOSE_WRITE，并做去重，覆盖写入也会被计数）
 - `waitForFile` / `delayAfterTriggerMs`: 各动作通用，true 时等待文件达标后按相对延迟执行；否则按 `delay`。
 - `dismissAfterTriggerMs`: 仅 dialogs 使用，弹窗已显示时文件达标后再延迟关闭。
 其余字段与 README 的 dialogs/openApp/messages/captureScreen 相同，缺省会在服务端补默认值。

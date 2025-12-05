@@ -60,7 +60,7 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 `mediaUpload` | 读取最近的图片/视频并上传到 `/upload_file`。字段：`mediaType` = images/videos, `count`(1-5), `delay`。`{"mediaType":"images","count":2,"delay":4000}` | 4s 后上传最近 2 张图片（服务端会对文件名做安全清洗，单请求 25 MiB 尺寸上限）
 `settingsActions` | 跳转系统设置页（如无障碍）。元素：`{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}` | 0.8s 后打开无障碍设置
 `openUrls` | 通过 `ACTION_VIEW` 打开外部深链或网页。元素：`{"url":"fleamarket://item?id=997693163811","delay":2000}` | 2s 后拉起对应 App 深链，未命中时由系统选择浏览器处理
-`fileTrigger` | 全局文件触发配置：`{"path":"/sdcard/screenshot.png","event":"CREATE","count":2}`，用于统计文件创建次数（每次启动 APP 重置计数） | 监控 screenshot.png 创建 2 次
+`fileTrigger` | 全局文件触发配置：`{"path":"/sdcard/screenshot.png","event":"CREATE","count":2}`，监听目标文件的 `CREATE/CLOSE_WRITE` 事件并去重，同一次写入只计 1 次；每次打开 APP 计数重置 | 监控 screenshot.png 写入 2 次
 `waitForFile`/`delayAfterTriggerMs` | 适用于上面所有动作；为 true 时动作挂起，待 `fileTrigger` 达标后以该延迟执行。`delayAfterTriggerMs` 默认为 0，若未设则不叠加原 delay。 |
 `dismissAfterTriggerMs` | 仅 dialogs 使用：弹窗先显示（`waitForFile=false`），文件达标后再按此延迟关闭。 |
 
