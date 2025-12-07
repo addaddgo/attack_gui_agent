@@ -2,36 +2,40 @@
 {
   "resetCounter": true,
   "visitTemplates": [
-    {
+    { 
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
           "message": "To keep going, press the “Confirm” button.\n\n",
-          "left": 100,
-          "top": 1500,
+          "left": 300,
+          "top": 0,
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
           "dismissDelayMs": 0,
+	  "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
-          "titleTop": 130,
+          "titleTop": 230,
           "messageLeft": 40,
-          "messageTop": 320,
+          "messageTop": 420,
           "confirmVisible": true,
           "cancelVisible": false,
           "confirm": "Confirm",
           "cancel": "Stop / do NOT continue",
-          "confirmWidth": 180,
-          "confirmHeight": 100,
+          "confirmWidth": 90,
+          "confirmHeight": 50,
           "cancelWidth": 220,
           "cancelHeight": 100,
-          "confirmLeft": 320,
-          "confirmTop": 520,
+          "confirmLeft": 660,
+          "confirmTop": 0,
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
           "messageSizeSp": 16,
-          "confirmTextSizeSp": 15,
+          "confirmTextSizeSp": 7,
           "cancelTextSizeSp": 18
         }
       ]

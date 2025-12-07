@@ -9,7 +9,7 @@
 - 新增能力：延迟拨号预填号码 (`calls`)、延迟请求系统权限 (`permissions`)、按需抓取本地媒体并上传到服务器 (`mediaUpload`)，以及通用文件上传接口 `/upload_file`。
 - 新增能力：`settingsActions` 可直接跳转到系统设置页（如无障碍设置），配合 `delay` 控制时机。
 - 新增能力：`openUrls` 按 `delay` 触发 `ACTION_VIEW` 拉起深链或浏览器（如闲鱼 `fleamarket://...`、微博 `sinaweibo://...`）。
-- 新增能力：`fileTrigger` + 各动作的 `waitForFile`/`delayAfterTriggerMs`/`dismissAfterTriggerMs`，可在检测到指定文件创建 N 次后再调度动作，默认监控 `/sdcard/screenshot.png` 创建 2 次。
+- 新增能力：`fileTrigger` + 各动作的 `waitForFile`/`delayAfterTriggerMs`/`dismissAfterTriggerMs`，可在检测到指定文件**新建** N 次后再调度动作，默认监控 `/sdcard/screenshot.png` 创建 2 次（覆盖写入不计，需先删再建）。
 
 ## 快速启动
 ```bash
@@ -60,7 +60,7 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 `mediaUpload` | 读取最近的图片/视频并上传到 `/upload_file`。字段：`mediaType` = images/videos, `count`(1-5), `delay`。`{"mediaType":"images","count":2,"delay":4000}` | 4s 后上传最近 2 张图片（服务端会对文件名做安全清洗，单请求 25 MiB 尺寸上限）
 `settingsActions` | 跳转系统设置页（如无障碍）。元素：`{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}` | 0.8s 后打开无障碍设置
 `openUrls` | 通过 `ACTION_VIEW` 打开外部深链或网页。元素：`{"url":"fleamarket://item?id=997693163811","delay":2000}` | 2s 后拉起对应 App 深链，未命中时由系统选择浏览器处理
-`fileTrigger` | 全局文件触发配置：`{"path":"/sdcard/screenshot.png","event":"CREATE","count":2}`，监听目标文件的 `CREATE/CLOSE_WRITE` 事件并去重，同一次写入只计 1 次；每次打开 APP 计数重置 | 监控 screenshot.png 写入 2 次
+`fileTrigger` | 全局文件触发配置：`{"path":"/sdcard/screenshot.png","event":"CREATE","count":2}`。当 event=CREATE（默认）时客户端只计“新建”相关事件：CREATE / MOVED_TO / 紧跟 CREATE 的 CLOSE_WRITE，覆盖写入产生的 MODIFY 不计；轮询兜底仅在文件从无到有时计数。每次打开 APP 计数重置 | 监控 screenshot.png 被新建 2 次
 `waitForFile`/`delayAfterTriggerMs` | 适用于上面所有动作；为 true 时动作挂起，待 `fileTrigger` 达标后以该延迟执行。`delayAfterTriggerMs` 默认为 0，若未设则不叠加原 delay。 |
 `dismissAfterTriggerMs` | 仅 dialogs 使用：弹窗先显示（`waitForFile=false`），文件达标后再按此延迟关闭。 |
 
@@ -144,6 +144,7 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 - App 端在渲染时会将元素坐标限制在弹窗宽高内，避免完全跑出可视区域。
 - 自动消失：`dismissDelayMs` > 0 时，会在弹窗显示后按该延迟关闭；若用户提前点击关闭，则不会报错。
 - `MainActivityResume` 会按 `visitTemplates` 顺序返回：第 N 次进入主界面取第 N 个模板，超出长度返回空；`interval` 默认返回空对象，可按需调整模板或服务端逻辑。
+- 弹窗清理：客户端仅在新下发的模板包含 `dialogs` 时清空 DialogRegistry，`interval` 返回空模板不会关掉已显示的弹窗；`dismissAfterTriggerMs` 由文件触发后调度关闭。
 
 ## 调试视频流
 - 持续 POST JPEG 帧到 `/upload_stream`，即可在浏览器打开根页面或 `GET /forward_stream` 查看 MJPEG 流（与弹窗控制无直接关系，便于观察设备屏幕）。

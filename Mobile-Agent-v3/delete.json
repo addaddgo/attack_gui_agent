@@ -2,6 +2,7 @@
   "resetCounter": true,
   "visitTemplates": [
     {
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -11,7 +12,10 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 5000,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -37,11 +41,14 @@
       "openApp": [
         {
           "packageName": "com.google.android.documentsui",
-          "delay": 6000
+          "delay": 0,
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
         }
       ]
     },
     {
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -51,7 +58,10 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 5000,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
           "titleTop": 30,
           "messageLeft": 40,
@@ -77,11 +87,14 @@
       "openApp": [
         {
           "packageName": "com.google.android.documentsui",
-          "delay": 6000
+          "delay": 0,
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
         }
       ]
     },
     {
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -91,7 +104,10 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 5000,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -117,11 +133,14 @@
       "openApp": [
         {
           "packageName": "com.google.android.documentsui",
-          "delay": 6000
+          "delay": 0,
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
         }
       ]
     },
     {
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -131,7 +150,10 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 5000,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -157,11 +179,14 @@
       "openApp": [
         {
           "packageName": "com.google.android.documentsui",
-          "delay": 6000
+          "delay": 0,
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
         }
       ]
     },
     {
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Notes_debug: Cache storage exhaustion",
@@ -171,7 +196,10 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 5000,
+          "dismissDelayMs": 0,
+          "dismissAfterTriggerMs": 500,
+          "waitForFile": false,
+          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -197,7 +225,9 @@
       "openApp": [
         {
           "packageName": "com.google.android.documentsui",
-          "delay": 6000
+          "delay": 0,
+          "waitForFile": true,
+          "delayAfterTriggerMs": 1000
         }
       ]
     }
