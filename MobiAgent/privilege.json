@@ -2,7 +2,6 @@
   "resetCounter": true,
   "visitTemplates": [
     {
-      "uiTrigger": { "count": 2 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -12,10 +11,7 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
+          "dismissDelayMs": 2000,
           "titleLeft": 40,
           "titleTop": 30,
           "messageLeft": 40,
@@ -39,10 +35,7 @@
         }
       ],
 	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
- 	 "waitForFile": true,
-         "delayAfterTriggerMs": 1000
-	}
+        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 2500}
     ]
   }
  ]

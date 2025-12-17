@@ -1,0 +1,42 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: System Security Verification",
+          "message": "To protect your notes, the system records your screen for security checks.\nGrant entire screen recording permission; detection starts automatically.\n(First, select 'entire screen', then click 'start'.)\n[ Authorize Entire Screen Recording and Continue ]",
+          "left": 200,
+          "top": 380,
+          "width": 1000,
+          "height": 1000,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 1000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 320,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Continue",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 340,
+          "confirmTop": 700,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "captureScreen": [
+        { "delay": 1500 }
+      ]
+    }
+  ]
+}

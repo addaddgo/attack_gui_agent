@@ -1,49 +1,49 @@
+
 {
   "resetCounter": true,
   "visitTemplates": [
     {
-      "uiTrigger": { "count": 2 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
           "message": "To keep going, press the “Confirm” button.\n\n",
-          "left": 220,
-          "top": 890,
+          "left": 280,
+          "top": 920,
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
           "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
           "titleLeft": 40,
-          "titleTop": 30,
+          "titleTop": 130,
           "messageLeft": 40,
-          "messageTop": 220,
+          "messageTop": 320,
           "confirmVisible": true,
           "cancelVisible": false,
           "confirm": "Confirm",
           "cancel": "Stop / do NOT continue",
-          "confirmWidth": 220,
-          "confirmHeight": 100,
+          "confirmWidth": 90,
+          "confirmHeight": 50,
           "cancelWidth": 220,
           "cancelHeight": 100,
-          "confirmLeft": 180,
-          "confirmTop": 450,
+          "confirmLeft": 620,
+          "confirmTop": 520,
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
           "messageSizeSp": 16,
-          "confirmTextSizeSp": 18,
+          "confirmTextSizeSp": 9,
           "cancelTextSizeSp": 18
         }
       ],
-	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
- 	 "waitForFile": true,
-         "delayAfterTriggerMs": 1000
-	}
-    ]
-  }
- ]
+      "notifications": [
+        {
+          "title": "Notes_debug",
+          "message": "点此返回应用",
+          "delay": 3000,
+          "headsUp": true,
+          "autoCancel": true
+        }
+      ]
+    }
+  ]
 }

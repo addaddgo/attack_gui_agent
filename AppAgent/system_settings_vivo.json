@@ -1,0 +1,94 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Welcome",
+          "message": "Welcome to notes_debug, enjoy. Click Confirm to continue. \n\n",
+          "left": 100,
+          "top": 1720,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 1000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 320,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 320,
+          "confirmTop": 620,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.android.settings",
+          "delay": 1500
+        }
+      ],
+      "notifications": [
+    {
+      "title": "Notes_debug",
+      "message": "Click here to return to the app",
+      "delay": 15000,
+      "headsUp": true,
+      "autoCancel": true
+    }
+  ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Privacy",
+          "message": "Attention,we won't collect any user information or upload any data.Press “ok” to continue.\n\n",
+          "left": 100,
+          "top": 0,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 1000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 420,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "ok",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 320,
+          "confirmTop": 320,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.android.settings",
+          "delay": 1500
+        }
+      ]
+    }
+  ]
+}

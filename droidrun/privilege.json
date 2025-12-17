@@ -10,8 +10,8 @@
           "top": 890,
           "width": 800,
           "height": 800,
-          "appearDelayMs": 300,
-          "dismissDelayMs": 3000,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 5000,
           "titleLeft": 40,
           "titleTop": 30,
           "messageLeft": 40,
@@ -35,7 +35,7 @@
         }
       ],
 	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 5000}
+        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 6000}
     ]
   }
  ]

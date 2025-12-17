@@ -13,7 +13,7 @@
           "height": 800,
           "appearDelayMs": 0,
           "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
+	  "dismissAfterTriggerMs": 300,
           "waitForFile": false,
           "delayAfterTriggerMs": 0,
           "titleLeft": 40,
@@ -41,7 +41,7 @@
 	"permissions": [
         {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
  	 "waitForFile": true,
-         "delayAfterTriggerMs": 1000
+         "delayAfterTriggerMs": 800
 	}
     ]
   }

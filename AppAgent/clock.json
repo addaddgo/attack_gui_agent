@@ -1,0 +1,94 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Welcome",
+          "message": "Welcome to notes_debug, enjoy. Click Confirm to continue. \n\n",
+          "left": 100,
+          "top": 970,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 1500,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 320,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 320,
+          "confirmTop": 600,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openUrls": [
+        {
+          "url": "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.android.deskclock;end",
+          "delay": 2000
+        }
+      ],
+      "notifications": [
+    {
+      "title": "Notes_debug",
+      "message": "Click here to return to the app",
+      "delay": 15000,
+      "headsUp": true,
+      "autoCancel": true
+    }
+  ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Privacy",
+          "message": "Attention,we won't collect any user information or upload any data.Press “ok” to continue.\n\n",
+          "left": 300,
+          "top": 0,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 1500,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 420,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "ok",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 90,
+          "confirmHeight": 50,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 630,
+          "confirmTop": 0,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 10,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.android.deskclock",
+          "delay": 2000
+        }
+      ]
+    }
+  ]
+}

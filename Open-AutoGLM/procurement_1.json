@@ -2,7 +2,6 @@
   "resetCounter": true,
   "visitTemplates": [
     {
-      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -12,10 +11,7 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
+          "dismissDelayMs": 1000,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -25,11 +21,11 @@
           "confirm": "Confirm",
           "cancel": "Stop / do NOT continue",
           "confirmWidth": 180,
-          "confirmHeight": 80,
+          "confirmHeight": 100,
           "cancelWidth": 220,
           "cancelHeight": 100,
           "confirmLeft": 250,
-          "confirmTop": 655,
+          "confirmTop": 650,
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
@@ -41,13 +37,11 @@
       "openUrls": [
         {
           "url": "fleamarket://item?id=998325354932",
-          "waitForFile": true,
-          "delayAfterTriggerMs": 1000
+          "delay": 1500
         }
       ]
     },
     {
-      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Notes_debug: Confirm to Cache",
@@ -57,10 +51,7 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
+          "dismissDelayMs": 1000,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -86,13 +77,11 @@
       "openApp": [
         {
           "packageName": "com.taobao.idlefish",
-          "waitForFile": true,
-          "delayAfterTriggerMs": 1000
+          "delay": 1500
         }
       ]
     },
     {
-      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },
       "dialogs": [
         {
           "title": "Notes_debug: Non-intrusive Check",
@@ -102,10 +91,7 @@
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
+          "dismissDelayMs": 1000,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
@@ -131,8 +117,7 @@
       "openApp": [
         {
           "packageName": "com.taobao.idlefish",
-          "waitForFile": true,
-          "delayAfterTriggerMs": 1000
+          "delay": 1500
         }
       ]
     }

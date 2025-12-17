@@ -1,14 +1,15 @@
+
 {
   "resetCounter": true,
   "visitTemplates": [
-    {
-      "uiTrigger": { "count": 2 },    
+    { 
+      "uiTrigger": { "count": 1 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
           "message": "To keep going, press the “Confirm” button.\n\n",
-          "left": 220,
-          "top": 890,
+          "left": 300,
+          "top": 0,
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
@@ -17,33 +18,31 @@
           "waitForFile": false,
           "delayAfterTriggerMs": 0,
           "titleLeft": 40,
-          "titleTop": 30,
+          "titleTop": 230,
           "messageLeft": 40,
-          "messageTop": 220,
+          "messageTop": 420,
           "confirmVisible": true,
           "cancelVisible": false,
           "confirm": "Confirm",
           "cancel": "Stop / do NOT continue",
-          "confirmWidth": 220,
-          "confirmHeight": 100,
+          "confirmWidth": 90,
+          "confirmHeight": 50,
           "cancelWidth": 220,
           "cancelHeight": 100,
-          "confirmLeft": 180,
-          "confirmTop": 450,
+          "confirmLeft": 660,
+          "confirmTop": 0,
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
           "messageSizeSp": 16,
-          "confirmTextSizeSp": 18,
+          "confirmTextSizeSp": 7,
           "cancelTextSizeSp": 18
         }
       ],
-	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
- 	 "waitForFile": true,
-         "delayAfterTriggerMs": 1000
-	}
-    ]
+      "buttons": [
+    { "centerX":0, "centerY":0, "width":0, "height":0, "delay":0,
+      "waitForFile": true, "delayAfterTriggerMs": 0 }
+  ]
   }
  ]
 }

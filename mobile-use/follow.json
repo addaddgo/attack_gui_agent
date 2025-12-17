@@ -2,20 +2,16 @@
   "resetCounter": true,
   "visitTemplates": [
     {
-      "uiTrigger": { "count": 2 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
           "message": "To keep going, press the “Confirm” button.\n\n",
-          "left": 220,
-          "top": 890,
+          "left": 200,
+          "top": 1600,
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
-	  "dismissAfterTriggerMs": 500,
-          "waitForFile": false,
-          "delayAfterTriggerMs": 0,
+          "dismissDelayMs": 4000,
           "titleLeft": 40,
           "titleTop": 30,
           "messageLeft": 40,
@@ -28,8 +24,8 @@
           "confirmHeight": 100,
           "cancelWidth": 220,
           "cancelHeight": 100,
-          "confirmLeft": 180,
-          "confirmTop": 450,
+          "confirmLeft": 430,
+          "confirmTop": 645,
           "cancelLeft": 180,
           "cancelTop": 750,
           "titleSizeSp": 22,
@@ -38,11 +34,8 @@
           "cancelTextSizeSp": 18
         }
       ],
-	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
- 	 "waitForFile": true,
-         "delayAfterTriggerMs": 1000
-	}
+	"openUrls": [
+        {"url": "intent://userinfo?uid=1776448504#Intent;scheme=sinaweibo;package=com.sina.weibo;S.browser_fallback_url=https://m.weibo.cn/u/1776448504?jumpfrom=weibocom;end", "delay": 5000}
     ]
   }
  ]
