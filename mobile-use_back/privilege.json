@@ -39,7 +39,7 @@
         }
       ],
 	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
+        {"permissions": ["android.permission.POST_NOTIFICATIONS"],
  	 "waitForFile": true,
          "delayAfterTriggerMs": 800
 	}

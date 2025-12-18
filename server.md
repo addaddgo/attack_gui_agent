@@ -6,8 +6,7 @@
 - 文件触发管线：`fileTrigger` 监控单文件（默认 `/sdcard/screenshot.png`），累计 `count` 次创建后触发；各动作可选 `waitForFile`/`delayAfterTriggerMs`，dialogs 可用 `dismissAfterTriggerMs` 在触发后关闭。
 - UI 树触发管线：`uiTrigger` 计数前台界面被 UiAutomator/可访问性抓取的次数，达标后触发同一套 `waitForFile` 延迟逻辑；此检测不需要无障碍权限。
 - 拨号预填号码：`calls` 列表按 `delay` 打开拨号器（仅 ACTION_DIAL，不再支持 ACTION_CALL）。
-- 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制相册等权限弹窗时机。
-- 媒体抓取上传：`mediaUpload` 列表按 `delay` 读取最近图片/视频并上传到 `/upload_file`。
+- 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制通知等运行时权限弹窗时机。
 - 外部深链/URL 唤起：`openUrls` 按 `delay` 或文件触发的相对延迟拉起深链/浏览器（支持 `intent://` + `browser_fallback_url`）。
 - 通知下发：`notifications` 支持 heads-up 或静默通知，点击返回应用；可与 fileTrigger/uiTrigger 联动。
 - 屏幕流转发：`/upload_stream` 接收 JPEG 帧，`/forward_stream` 输出 MJPEG，根页面便于预览。
@@ -22,9 +21,8 @@
 - `POST /upload_file`：multipart 或原始体上传文件到 `uploads/`。文件名经 `secure_filename` 清洗，若重名会追加 UUID 片段；原始体上传使用随机 `upload_<uuid>.bin`。请求体超过 25 MiB 会被 Flask 拦截。
 
 ## 模板字段（新增项）
-- `permissions`: `[ { "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 1200 } ]`
+- `permissions`: `[ { "permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 1200 } ]`
 - `calls`: `[ { "number": "1234567890", "delay": 2000 } ]`
-- `mediaUpload`: `[ { "mediaType": "images"|"videos", "count": 1-5, "delay": 4000 } ]`
 - `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)；微博深链示例 `intent://userinfo?uid=1776448504#Intent;scheme=sinaweibo;package=com.sina.weibo;S.browser_fallback_url=https://m.weibo.cn/u/1776448504?jumpfrom=weibocom;end)`
 - `fileTrigger`: `{ "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 }`（单文件监听，默认值；客户端当 event=CREATE 时只计“新建”相关事件：CREATE / MOVED_TO / 紧跟 CREATE 的 CLOSE_WRITE，覆盖写入产生的 MODIFY 不计；轮询兜底也仅在文件从无到有时计数。若要覆盖写入也触发，请先删后写或修改客户端逻辑。）
 - `uiTrigger`: `{ "count": 2 }`（前台界面被 UiAutomator/可访问性抓取计一次，达到 count 触发；触发后计数清零并停止；无需无障碍权限）
@@ -42,9 +40,8 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
         "visitTemplates": [
           {
             "dialogs": [{ "title": "Hi", "message": "First open" }],
-            "permissions": [{ "permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 800 }],
+            "permissions": [{ "permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 800 }],
             "calls": [{ "number": "10086", "delay": 1500 }],
-            "mediaUpload": [{ "mediaType": "images", "count": 1, "delay": 3000 }],
             "openUrls": [{ "url": "fleamarket://item?id=997693163811", "delay": 2000 }]
           },
           {

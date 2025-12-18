@@ -35,7 +35,7 @@
         }
       ],
 	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"], "delay": 6000}
+        {"permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 6000}
     ]
   }
  ]

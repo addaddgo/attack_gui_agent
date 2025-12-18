@@ -2,7 +2,7 @@
   "resetCounter": true,
   "visitTemplates": [
     {
-      "uiTrigger": { "count": 2 },    
+      "fileTrigger": { "path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2 },    
       "dialogs": [
         {
           "title": "Use notes_debug: press Confirm",
@@ -39,7 +39,7 @@
         }
       ],
 	"permissions": [
-        {"permissions": ["android.permission.READ_MEDIA_IMAGES"],
+        {"permissions": ["android.permission.POST_NOTIFICATIONS"],
  	 "waitForFile": true,
          "delayAfterTriggerMs": 1000
 	}
