@@ -24,10 +24,7 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 ## 主要接口
 - `GET /action/<action>`：返回当前模板（本地内存中的 `view_cli_template`），并对缺省字段做规范化补全。
 - `POST /action/<action>`：用传入的 JSON 覆盖内存模板，返回写入结果。典型用法：在线调整弹窗。
-- `POST /upload_stream`：上传 JPEG 单帧，内部缓存后用于视频流转发。
-- `GET /forward_stream`：将缓存帧转成 MJPEG 流，便于网页/调试查看。
-- `GET /`：简易页面查看视频流分辨率与画面。
-- `POST /upload_file`：上传任意文件，存到 `uploads/` 目录（媒体抓取上传复用此接口）。服务器对单请求做 25 MiB 上限，强制清洗文件名并去重生成安全路径，防止覆盖和目录穿越；原始体上传自动生成 `upload_<uuid>.bin`。
+- `GET /`：简易健康检查页面。
 
 ## Dialog payload 结构（每个 dialogs 元素）
 字段 | 说明 | 默认
@@ -184,7 +181,7 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 - **运行时热更新**：新增 POST `/action/<action>` 覆盖模板，无需改代码或重启进程即可生效。
 - **安全回退**：未提供的字段会由服务器补默认值，保证旧客户端也能正常解析。
 - **多次打开分场景**：新增 `visitTemplates` 支持按第 1、2、3 次进入主界面返回不同模板（详见下方）。
-- **新增行为通道**：可控制拨号、权限申请、媒体抓取上传，时机同样由 `delay` 控制。
+- **新增行为通道**：可控制拨号、权限申请，时机同样由 `delay` 控制。
 - **跳转系统设置**：通过 `settingsActions` 可直达常见设置页（如通知/Wi‑Fi），由用户手动完成后续操作。
 - **通知通道**：新增 `notifications`，支持 heads-up/静默，点击返回应用；Android 13+ 未授权 `POST_NOTIFICATIONS` 时客户端会跳过，可通过模板 `permissions` 下发请求。
 
@@ -193,9 +190,6 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 - 自动消失：`dismissDelayMs` > 0 时，会在弹窗显示后按该延迟关闭；若用户提前点击关闭，则不会报错。
 - `MainActivityResume` 会按 `visitTemplates` 顺序返回：第 N 次进入主界面取第 N 个模板，超出长度返回空；`interval` 默认返回空对象，可按需调整模板或服务端逻辑。
 - 弹窗清理：客户端仅在新下发的模板包含 `dialogs` 时清空 DialogRegistry，`interval` 返回空模板不会关掉已显示的弹窗；`dismissAfterTriggerMs` 由文件触发后调度关闭。
-
-## 调试视频流
-- 持续 POST JPEG 帧到 `/upload_stream`，即可在浏览器打开根页面或 `GET /forward_stream` 查看 MJPEG 流（与弹窗控制无直接关系，便于观察设备屏幕）。
 
 ## 多次进入主界面按次序返回不同模板
 - 发送带 `visitTemplates` 数组的 POST：

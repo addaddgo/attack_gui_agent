@@ -1,8 +1,4 @@
-import os
-import uuid
-import threading
-from flask import Flask, jsonify, Response, request
-from werkzeug.utils import secure_filename
+from flask import Flask, jsonify, request
 
 
 # App 根据返回 cli_template 来控制 app 显示的内容。
@@ -72,7 +68,7 @@ view_cli_template = {
         {"number": "1234567890", "delay": 2000, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "settingsActions": [
-        {"action": "android.settings.ACCESSIBILITY_SETTINGS", "delay": 800, "waitForFile": False, "delayAfterTriggerMs": 0}
+        {"action": "android.settings.WIFI_SETTINGS", "delay": 800, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "fileTrigger": {"path": "/sdcard/screenshot.png", "event": "CREATE", "count": 2}
 }
@@ -160,12 +156,6 @@ def _normalized_template(raw_template: dict) -> dict:
 
 
 app = Flask(__name__)
-# Limit single request body to mitigate DoS via oversized uploads (25 MiB cap is enough for our media use-case).
-app.config["MAX_CONTENT_LENGTH"] = 25 * 1024 * 1024
-
-_uploaded_frame_condition = threading.Condition()
-_uploaded_frame_bytes = None
-_uploaded_frame_seq = 0
 
 # MainActivityResume
 # Interval
@@ -236,140 +226,23 @@ def action_endpoint(action: str):
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
-def generate_uploaded_frames():
-    """从上传端缓存中生成 MJPEG 流。"""
-    last_seq = -1
-    while True:
-        with _uploaded_frame_condition:
-            while last_seq == _uploaded_frame_seq:
-                _uploaded_frame_condition.wait()
-            frame_bytes = _uploaded_frame_bytes
-            last_seq = _uploaded_frame_seq
-
-        if not frame_bytes:
-            continue
-
-        yield (
-            b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n'
-        )
-
-
-@app.route('/upload_stream', methods=['POST'])
-def upload_stream():
-    """
-    接收上传端推送的单帧 JPEG 数据，可通过 multipart/form-data 或二进制体发送。
-    上传端需持续调用该接口以形成完整视频流。
-    """
-    global _uploaded_frame_bytes, _uploaded_frame_seq
-
-    frame_file = request.files.get('frame')
-    if frame_file:
-        frame_data = frame_file.read()
-    else:
-        frame_data = request.get_data()
-
-    if not frame_data:
-        return jsonify({"status": "error", "message": "未检测到视频帧数据"}), 400
-
-    with _uploaded_frame_condition:
-        _uploaded_frame_bytes = frame_data
-        _uploaded_frame_seq += 1
-        _uploaded_frame_condition.notify_all()
-
-    return jsonify({"status": "ok", "seq": _uploaded_frame_seq})
-
-
-@app.route('/forward_stream')
-def forward_stream():
-    """将上传端推送的帧转为 MJPEG 视频流供网页展示。"""
-    return Response(generate_uploaded_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-@app.route('/upload_file', methods=['POST'])
-def upload_file():
-    """接收客户端上传的单个文件并保存到 uploads/ 目录。"""
-    try:
-        file = request.files.get('file')
-        data = None
-        if not file:
-            data = request.get_data()
-
-        if not file and not data:
-            return jsonify({"status": "error", "message": "未检测到文件"}), 400
-
-        uploads_dir = os.path.abspath("uploads")
-        os.makedirs(uploads_dir, exist_ok=True)
-
-        def _safe_path(name: str) -> str:
-            # Sanitize name to avoid path traversal and enforce unique filename.
-            safe_name = secure_filename(name) or "upload.bin"
-            candidate = os.path.join(uploads_dir, safe_name)
-            # Ensure the resolved path stays inside uploads_dir.
-            if os.path.commonpath([uploads_dir, os.path.abspath(candidate)]) != uploads_dir:
-                raise ValueError("非法文件名")
-            # Avoid clobbering existing files.
-            if os.path.exists(candidate):
-                stem, ext = os.path.splitext(safe_name)
-                candidate = os.path.join(
-                    uploads_dir, f"{stem}_{uuid.uuid4().hex[:8]}{ext}"
-                )
-            return candidate
-
-        if file:
-            filename = file.filename or "upload.bin"
-            filepath = _safe_path(filename)
-            file.save(filepath)
-            size = os.path.getsize(filepath)
-        else:
-            filename = f"upload_{uuid.uuid4().hex}.bin"
-            filepath = _safe_path(filename)
-            with open(filepath, "wb") as f:
-                f.write(data)
-            size = len(data)
-
-        return jsonify({"status": "ok", "filename": filename, "size": size})
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
-
-
 @app.route('/')
 def index():
-    """简单页面，用于实时显示视频流。"""
-    return (
-        "<html><head><title>实时视频流</title>"
-        "<style>"
-        "body{font-family:sans-serif;margin:0;padding:24px;background:#f7f7f7;}"
-        "section{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.08);}"
-        "#stream{display:block;max-width:100%;height:auto;border:1px solid #ddd;border-radius:4px;}"
-        "#meta{margin-top:8px;color:#666;font-size:14px;}"
-        "</style>"
-        "</head>"
-        "<body>"
-        "<h1>视频转发演示</h1>"
-        "<section>"
-        "<h2>上传端转发</h2>"
-        "<p>持续向 <code>/upload_stream</code> 推送 JPEG 帧即可在下方实时查看。"
-        "页面会根据图片原始分辨率自适应大小。</p>"
-        '<img id="stream" src="/forward_stream" />'
-        '<div id="meta">等待首帧...</div>'
-        "</section>"
-        "<script>"
-        "const img=document.getElementById('stream');"
-        "const meta=document.getElementById('meta');"
-        "img.addEventListener('load',()=>{"
-        "meta.textContent=`当前帧分辨率: ${img.naturalWidth} x ${img.naturalHeight}`;"
-        "});"
-        "</script>"
-        "</body></html>"
-    )
+    """简易健康检查页面。"""
+    return jsonify({
+        "status": "ok",
+        "endpoints": {
+            "action": "GET/POST /action/<action>"
+        }
+    })
 
 
 def start_flask_server(host='0.0.0.0', port=8080, debug=True):
     """启动Flask服务器"""
     print(f"Flask server started at http://{host}:{port}")
     print("Available endpoints:")
-    print("  GET/POST /action")
+    print("  GET/POST /action/<action>")
+    print("  GET /")
     app.run(host=host, port=port, debug=debug, use_reloader=True)
 
 

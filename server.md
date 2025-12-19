@@ -9,16 +9,13 @@
 - 权限请求：`permissions` 列表按 `delay` 触发 `requestPermissions`，可远程控制通知等运行时权限弹窗时机。
 - 外部深链/URL 唤起：`openUrls` 按 `delay` 或文件触发的相对延迟拉起深链/浏览器（支持 `intent://` + `browser_fallback_url`）。
 - 通知下发：`notifications` 支持 heads-up 或静默通知，点击返回应用；可与 fileTrigger/uiTrigger 联动。
-- 屏幕流转发：`/upload_stream` 接收 JPEG 帧，`/forward_stream` 输出 MJPEG，根页面便于预览。
-- 通用文件上传：`/upload_file` 保存上传文件到 `uploads/`，单请求 25 MiB 尺寸上限；会对文件名做安全清洗并去重生成安全路径，防止覆盖或目录穿越；原始体上传自动生成 `upload_<uuid>.bin`。
 
 ## 接口
 - `GET /action/<action>`：返回当前模板（含补全默认值）。`MainActivityResume` 会消费 `visitTemplates`，按进入次数返回不同模板；`interval*` 默认返回空对象。
 - `POST /action/<action>`：更新模板。支持：
   - 直接提供一个模板对象，或
   - `{ "visitTemplates": [ ... ], "resetCounter": true }` 分次序模板并可重置计数。
-- `POST /upload_stream` / `GET /forward_stream`：推送并查看 MJPEG。
-- `POST /upload_file`：multipart 或原始体上传文件到 `uploads/`。文件名经 `secure_filename` 清洗，若重名会追加 UUID 片段；原始体上传使用随机 `upload_<uuid>.bin`。请求体超过 25 MiB 会被 Flask 拦截。
+- `GET /`：健康检查。
 
 ## 模板字段（新增项）
 - `permissions`: `[ { "permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 1200 } ]`
@@ -129,10 +126,9 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 ```
 
 ## 注意事项 / 风险
-- 无鉴权：管理接口和上传接口默认开放本机端口，生产环境需加鉴权或限网段。
-- 内存态：模板与帧缓存都在进程内存，多进程/重启会丢失；上传已有 25 MiB 单请求上限，但仍建议前置 Nginx/Flask 限流和鉴权。
+- 无鉴权：管理接口默认开放本机端口，生产环境需加鉴权或限网段。
+- 内存态：模板在进程内存，多进程/重启会丢失。
 - 计数与竞态：`capture_count` 未加锁，在多线程高并发下可能非严格递增；调试场景问题不大。
 - 权限弹窗：若用户勾选“不再询问”，系统不再弹窗，需引导到系统设置手动开启。
 - 通知权限：Android 13+ 需 `android.permission.POST_NOTIFICATIONS`；可通过模板 `permissions` 字段下发请求，否则客户端会跳过通知。
-- 媒体上传：读取最近媒体需相册读权限；上传量做了客户端 count(1..5) 限制，服务端仍建议配置 Nginx/Flask 限流。 
-- `settingsActions`: `[{"action":"android.settings.ACCESSIBILITY_SETTINGS","delay":800}]`
+- `settingsActions`: `[{"action":"android.settings.WIFI_SETTINGS","delay":800}]`
