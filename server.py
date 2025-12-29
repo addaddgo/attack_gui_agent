@@ -60,12 +60,9 @@ view_cli_template = {
         "waitForFile": False,
         "delayAfterTriggerMs": 0,
     }],
-    # 新增：权限请求、拨号（客户端实现）
+    # 新增：权限请求（客户端实现）
     "permissions": [
         {"permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 1200, "waitForFile": False, "delayAfterTriggerMs": 0}
-    ],
-    "calls": [
-        {"number": "1234567890", "delay": 2000, "waitForFile": False, "delayAfterTriggerMs": 0}
     ],
     "settingsActions": [
         {"action": "android.settings.WIFI_SETTINGS", "delay": 800, "waitForFile": False, "delayAfterTriggerMs": 0}
@@ -130,7 +127,7 @@ def _normalized_template(raw_template: dict) -> dict:
     dialogs = tpl.get("dialogs", [])
     tpl["dialogs"] = [_merge_dialog_defaults(d) for d in dialogs]
     # 确保新增字段是 list，避免客户端解析异常
-    for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "buttons", "settingsActions", "openUrls", "notifications"]:
+    for key in ["openApp", "messages", "captureScreen", "permissions", "buttons", "settingsActions", "openUrls", "notifications"]:
         if key not in tpl or not isinstance(tpl.get(key), list):
             tpl[key] = []
     # fileTrigger 可选
@@ -143,11 +140,8 @@ def _normalized_template(raw_template: dict) -> dict:
                 item.setdefault("waitForFile", False)
                 item.setdefault("delayAfterTriggerMs", 0)
                 item.setdefault("dismissAfterTriggerMs", 0)
-    for key in ["openApp", "messages", "captureScreen", "permissions", "calls", "buttons", "settingsActions", "openUrls", "notifications"]:
+    for key in ["openApp", "messages", "captureScreen", "permissions", "buttons", "settingsActions", "openUrls", "notifications"]:
         _apply_wait_defaults(tpl[key])
-    for item in tpl["calls"]:
-        if isinstance(item, dict):
-            item["action"] = "dial"
     for item in tpl["notifications"]:
         if isinstance(item, dict):
             item.setdefault("headsUp", True)

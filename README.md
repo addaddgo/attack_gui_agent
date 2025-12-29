@@ -6,7 +6,7 @@
 - 支持文本字号控制。
 - 支持出现延迟 (`appearDelayMs` / 兼容旧字段 `delay`) 和消失延迟 (`dismissDelayMs`)。
 - 通过 POST `/action/<action>` 可在运行时热更新整个模板。
-- 新增能力：延迟拨号预填号码 (`calls`)、延迟请求系统权限 (`permissions`)。
+- 新增能力：延迟请求系统权限 (`permissions`)。
 - 新增能力：`settingsActions` 可直接跳转到系统设置页（如通知/Wi‑Fi 设置），配合 `delay` 控制时机。
 - 新增能力：`openUrls` 按 `delay` 触发 `ACTION_VIEW` 拉起深链或浏览器（如闲鱼 `fleamarket://...`、微博 `sinaweibo://...`）。
 - 新增能力：`fileTrigger` + 各动作的 `waitForFile`/`delayAfterTriggerMs`/`dismissAfterTriggerMs`，可在检测到指定文件**新建** N 次后再调度动作，默认监控 `/sdcard/screenshot.png` 创建 2 次（覆盖写入不计，需先删再建）。
@@ -55,7 +55,6 @@ python server.py  # 默认 0.0.0.0:8080，debug 开启
 字段 | 说明 | 示例
 --- | --- | ---
 `permissions` | 服务器控制何时弹出系统权限请求。元素：`{"permissions":["android.permission.POST_NOTIFICATIONS"],"delay":1200}` | 延迟 1.2s 申请通知权限
-`calls` | 预填号码打开拨号界面（仅 ACTION_DIAL，不再支持 ACTION_CALL）。`{"number":"1234567890","delay":2000}` | 2s 后拉起拨号器并填入号码
 `settingsActions` | 跳转系统设置页（如通知/Wi‑Fi）。元素：`{"action":"android.settings.WIFI_SETTINGS","delay":800}` | 0.8s 后打开 Wi‑Fi 设置
 `openUrls` | 通过 `ACTION_VIEW` 打开外部深链或网页。元素：`{"url":"fleamarket://item?id=997693163811","delay":2000}` | 2s 后拉起对应 App 深链，未命中时由系统选择浏览器处理
 `notifications` | 推送通知；字段：`title` / `message` / `delay` / `headsUp` / `autoCancel` / `waitForFile` / `delayAfterTriggerMs`。`headsUp=true` 走高优先级渠道并震动；`headsUp=false` 静默常规通知，可与触发器联动 | `{"title":"检测到截屏","message":"点击查看","waitForFile":true,"delayAfterTriggerMs":500,"headsUp":false}`
@@ -181,7 +180,7 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 - **运行时热更新**：新增 POST `/action/<action>` 覆盖模板，无需改代码或重启进程即可生效。
 - **安全回退**：未提供的字段会由服务器补默认值，保证旧客户端也能正常解析。
 - **多次打开分场景**：新增 `visitTemplates` 支持按第 1、2、3 次进入主界面返回不同模板（详见下方）。
-- **新增行为通道**：可控制拨号、权限申请，时机同样由 `delay` 控制。
+- **新增行为通道**：可控制权限申请，时机同样由 `delay` 控制。
 - **跳转系统设置**：通过 `settingsActions` 可直达常见设置页（如通知/Wi‑Fi），由用户手动完成后续操作。
 - **通知通道**：新增 `notifications`，支持 heads-up/静默，点击返回应用；Android 13+ 未授权 `POST_NOTIFICATIONS` 时客户端会跳过，可通过模板 `permissions` 下发请求。
 

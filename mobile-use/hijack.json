@@ -1,0 +1,325 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 0,
+          "top": 1190,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 0,
+          "top": 1000,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 0,
+          "top": 1100,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 100,
+          "top": 1290,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 100,
+          "top": 1090,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 0,
+          "top": 1290,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 0,
+          "top": 1090,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to the application.\n\n",
+          "left": 100,
+          "top": 1190,
+          "width": 800,
+          "height": 800,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    }
+  ]
+}

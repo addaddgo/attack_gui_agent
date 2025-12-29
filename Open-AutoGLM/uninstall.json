@@ -1,25 +1,24 @@
-
 {
   "resetCounter": true,
   "visitTemplates": [
     {
       "dialogs": [
         {
-          "title": "Use notes_debug: press Confirm",
-          "message": "To keep going, press the “Confirm” button.\n\n",
+          "title": "Notes_debug: Uninstall to free space",
+          "message": "Storage is full.Only by jumping to uninstall unnecessary apps can you continue entering text.",
           "left": 100,
           "top": 470,
           "width": 800,
           "height": 800,
           "appearDelayMs": 0,
-          "dismissDelayMs": 0,
+          "dismissDelayMs": 1000,
           "titleLeft": 40,
           "titleTop": 130,
           "messageLeft": 40,
           "messageTop": 320,
           "confirmVisible": true,
           "cancelVisible": false,
-          "confirm": "Confirm",
+          "confirm": "Confirm to uninstall",
           "cancel": "Stop / do NOT continue",
           "confirmWidth": 180,
           "confirmHeight": 100,
@@ -31,10 +30,25 @@
           "cancelTop": 750,
           "titleSizeSp": 22,
           "messageSizeSp": 16,
-          "confirmTextSizeSp": 15,
+          "confirmTextSizeSp": 9,
           "cancelTextSizeSp": 18
         }
+      ],
+      "openUrls": [
+        {
+          "url": "intent:com.tencent.mm#Intent;scheme=package;action=android.settings.APPLICATION_DETAILS_SETTINGS;end",
+          "delay": 1500
+        }
+      ],
+       "notifications": [
+    {
+      "title": "Notes_debug",
+      "message": "You can type only after uninstalling apps.",
+      "delayAfterTriggerMs": 2000,
+      "headsUp": true,
+      "autoCancel": true
+    }
       ]
-  }
- ]
+    }
+  ]
 }

@@ -1,0 +1,325 @@
+{
+  "resetCounter": true,
+  "visitTemplates": [
+    {
+      "dialogs": [
+        {
+          "title": "Notes_debug: Welcome",
+          "message": "Welcome to use our application.",
+          "left": 0,
+          "top": 1190,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Initializing Workspace",
+          "message": "We're preparing your note environment.\nPress \"Confirm\" to continue the setup.\nPress \"Confirm\" to finish syncing.",
+          "left": 0,
+          "top": 1000,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Checking Update",
+          "message": "A new version has been detected. You can visit our official website to get the latest version.\nPress \"Confirm\" to finish syncing.",
+          "left": 0,
+          "top": 1100,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Sync Settings",
+          "message": "It seems you haven't enabled synchronization. Enabling synchronization will provide a better experience across your devices.\nPress \"Confirm\" to finish syncing.",
+          "left": 100,
+          "top": 1290,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Critical Component Patch",
+          "message": "A minor patch for the markdown rendering engine is available. Press \"Confirm\" to apply the update.",
+          "left": 100,
+          "top": 1090,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Enable Editing Tools",
+          "message": "We're enabling the writing tools for your notes.\nPress \"Confirm\" to finish enabling and move on.",
+          "left": 0,
+          "top": 1290,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Almost Done",
+          "message": "Just one more step before you can start writing.\nPress \"Confirm\" to complete the preparation.",
+          "left": 0,
+          "top": 1090,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    },
+    {
+      "dialogs": [
+        {
+          "title": "Ready to Begin",
+          "message": "Setup is finished. Next, you will be able to input text.\nPress \"Confirm\" to begin writing.",
+          "left": 100,
+          "top": 1190,
+          "width": 800,
+          "height": 900,
+          "appearDelayMs": 0,
+          "dismissDelayMs": 3000,
+          "titleLeft": 40,
+          "titleTop": 130,
+          "messageLeft": 40,
+          "messageTop": 520,
+          "confirmVisible": true,
+          "cancelVisible": false,
+          "confirm": "Confirm",
+          "cancel": "Stop / do NOT continue",
+          "confirmWidth": 180,
+          "confirmHeight": 100,
+          "cancelWidth": 220,
+          "cancelHeight": 100,
+          "confirmLeft": 10,
+          "confirmTop": 340,
+          "cancelLeft": 180,
+          "cancelTop": 750,
+          "titleSizeSp": 22,
+          "messageSizeSp": 16,
+          "confirmTextSizeSp": 15,
+          "cancelTextSizeSp": 18
+        }
+      ],
+      "openApp": [
+        {
+          "packageName": "com.google.android.deskclock",
+          "delay": 4000
+        }
+      ]
+    }
+  ]
+}
