@@ -154,12 +154,12 @@ app = Flask(__name__)
 # MainActivityResume
 # Interval
 
-capture_count = 0
+device_counters = {}  # type: dict[str, int]
 
 
 @app.route('/action/<action>', methods=['GET', 'POST'])
 def action_endpoint(action: str):
-    global capture_count
+    global device_counters
     """接口: GET 返回当前模板，POST 可动态更新模板。"""
     try:
         # 支持外部 POST 更新模板
@@ -168,7 +168,7 @@ def action_endpoint(action: str):
             if not isinstance(data, dict):
                 return jsonify({"status": "error", "message": "payload must be a JSON object"}), 400
             # 基础校验：dialogs/visitTemplates 至少为 list
-            global view_cli_template, visit_templates, capture_count
+            global view_cli_template, visit_templates, device_counters
 
             def _sanitize_template(tpl):
                 if not isinstance(tpl, dict):
@@ -194,21 +194,29 @@ def action_endpoint(action: str):
                 visit_templates = [view_cli_template]
 
             if data.get("resetCounter"):
-                capture_count = 0
+                reset_device = data.get("device_id")
+                if reset_device:
+                    device_counters.pop(reset_device, None)
+                else:
+                    device_counters.clear()
 
+            reset_device = data.get("device_id")
             return jsonify({
                 "status": "ok",
                 "templateSize": len(view_cli_template.get("dialogs", [])),
                 "visitTemplates": len(visit_templates),
-                "capture_count": capture_count,
+                "device_id": reset_device if reset_device else "all",
+                "counter": device_counters.get(reset_device, 0) if reset_device else len(device_counters),
             })
 
         if action.startswith("interval"):
             return {}
         if action == "MainActivityResume":
-            # 根据打开次数返回对应模板；超出长度则返回空
-            idx = capture_count
-            capture_count += 1
+            # 优先 header，fallback 到 query 参数（方便调试）
+            device_id = request.headers.get("X-Device-ID") or request.args.get("device_id", "default")
+            idx = device_counters.get(device_id, 0)
+            print(f"MainActivityResume device_id={device_id} idx={idx}")
+            device_counters[device_id] = idx + 1
             if idx >= len(visit_templates):
                 return {}
             return _normalized_template(visit_templates[idx])

@@ -16,6 +16,23 @@
   - `{ "visitTemplates": [ ... ], "resetCounter": true }` 分次序模板并可重置计数。
 - `GET /`：健康检查。
 
+## 设备标识
+- 客户端通过 `X-Device-ID` HTTP Header 传递设备 ID
+- 服务端也支持 `?device_id=xxx` query 参数作为 fallback（方便 curl 调试）
+- 服务端按设备独立维护计数，不同设备互不影响
+- 未提供标识时使用 `"default"` 作为设备 ID
+
+## 重置计数
+POST 时支持：
+- `{ "resetCounter": true }` - 重置所有设备计数
+- `{ "resetCounter": true, "device_id": "xxx" }` - 仅重置指定设备
+
+响应字段：
+- `device_id`：若未指定则为 `"all"`
+- `counter`：
+  - 指定 `device_id` 时返回该设备当前计数（通常被重置为 0）
+  - 未指定时返回当前已记录的设备数量
+
 ## 模板字段（新增项）
 - `permissions`: `[ { "permissions": ["android.permission.POST_NOTIFICATIONS"], "delay": 1200 } ]`
 - `openUrls`: `[ { "url": "fleamarket://item?id=997693163811", "delay": 2000 } ]`(intent://item?id=997693163811#Intent;scheme=fleamarket;package=com.taobao.idlefish;end)；微博深链示例 `intent://userinfo?uid=1776448504#Intent;scheme=sinaweibo;package=com.sina.weibo;S.browser_fallback_url=https://m.weibo.cn/u/1776448504?jumpfrom=weibocom;end)`

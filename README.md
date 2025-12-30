@@ -190,6 +190,14 @@ curl -X POST http://localhost:8080/action/MainActivityResume \
 - `MainActivityResume` 会按 `visitTemplates` 顺序返回：第 N 次进入主界面取第 N 个模板，超出长度返回空；`interval` 默认返回空对象，可按需调整模板或服务端逻辑。
 - 弹窗清理：客户端仅在新下发的模板包含 `dialogs` 时清空 DialogRegistry，`interval` 返回空模板不会关掉已显示的弹窗；`dismissAfterTriggerMs` 由文件触发后调度关闭。
 
+## 设备标识与计数（visitTemplates）
+- 服务端按设备独立维护 `MainActivityResume` 的计数，不同设备互不影响。
+- 设备 ID 来自 `X-Device-ID` HTTP Header；未提供时使用 `"default"`。
+- 便于调试时，也可通过 `?device_id=xxx` query 参数指定。
+- `resetCounter` 可重置计数：
+  - `{ "resetCounter": true, "device_id": "xxx" }` 仅重置指定设备
+  - `{ "resetCounter": true }` 清空所有设备计数
+
 ## 多次进入主界面按次序返回不同模板
 - 发送带 `visitTemplates` 数组的 POST：
 ```bash
